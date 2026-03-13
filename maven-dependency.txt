@@ -1,0 +1,21 @@
+
+
+VM Options
+
+-Dfile.encoding=UTF-8 -Dconsole.encoding=UTF-8
+
+
+POM.xml
+
+        <dependency>
+            <groupId>com.servlets</groupId>
+            <artifactId>cos</artifactId>
+            <version>05Nov2002</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.44</version>
+            <scope>provided</scope>
+        </dependency>
