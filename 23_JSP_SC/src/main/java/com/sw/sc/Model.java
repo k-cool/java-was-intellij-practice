@@ -7,6 +7,62 @@ import javax.servlet.http.HttpSession;
 import java.net.HttpCookie;
 
 public class Model {
+
+        /*
+            param   - V에서 만든 값(html, jsp, get요청 만든 문자열, from -> input name)
+                    - String, String[]
+                    - req에 실려서 전송
+                    - 값 읽을 때
+                        - java: req.getParameter("이름")
+                        - EL: ${param.이름}
+
+            attr    - Java에서 주로 M에서 만든 값
+                    - Object
+                    - req에 실려서 전송
+                    - 값 읽을 때
+                        - java: req.getAttribute("이름")
+                        - EL: ${이름}
+
+            - 특성상 third에서 못씀
+
+            session, cookie
+
+        */
+
+    public static void printSC(HttpServletRequest request) {
+        /*
+
+            session.attr
+                 - 서버~~~클라이언트 연결상태에 담김.
+                 - object 시간제한(기본 30분)
+                 - 값 읽을때
+                        - JAVA: req.getSession().getAttribute("이름")
+                        - EL: ${이름} / ${sessionScope.이름} -> 이 방법 주로 사용하기
+
+        */
+
+        Object c = request.getSession().getAttribute("c");
+
+        System.out.println("sesstion: " + c);
+
+        /*
+            cookie
+                - 값 읽을때
+                    - EL: ${cookie.이름.value}
+                    - java: req.getCookies()
+        */
+
+        Cookie[] cookies = request.getCookies();
+
+        for (Cookie cookie : cookies) {
+            System.out.println(cookie.getName());
+
+            if (cookie.getName().equals("d")) {
+                System.out.println(cookie.getValue());
+            }
+        }
+    }
+
     public static void make(HttpServletRequest request, HttpServletResponse response) {
         String a = request.getParameter("a");
 
@@ -14,13 +70,6 @@ public class Model {
 
         request.setAttribute("b", bbb);
 
-        /*
-            param, attr
-            - 특성상 third에서 못씀
-
-            session, cookie
-
-        */
 
         String ccc = "세션~~~!";
 
@@ -59,8 +108,8 @@ public class Model {
 
         coo.setMaxAge(5 * 60); // 5분
 
-        System.out.println(coo.toString());
-        
+        printSC(request);
+
         response.addCookie(coo);
     }
 }
